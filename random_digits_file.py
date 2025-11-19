@@ -4,11 +4,19 @@ import random
 from typing import Iterable
 
 
+LINE_SUFFIXES = [
+    "- operacja ok",
+    "- duplikaty",
+    "- nie znany blad",
+]
+
+
 def generate_digit_lines(line_length: int, line_count: int) -> Iterable[str]:
     """Yield ``line_count`` strings consisting of random digits of ``line_length``."""
     digits = "0123456789"
     for _ in range(line_count):
-        yield "".join(random.choice(digits) for _ in range(line_length))
+        digits_part = "".join(random.choice(digits) for _ in range(line_length))
+        yield f"{digits_part} {random.choice(LINE_SUFFIXES)}"
 
 
 def write_random_digits_file(path: str, line_length: int, line_count: int) -> None:
